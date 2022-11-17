@@ -16,24 +16,18 @@ Material didatico com as configurações iniciais para criar um site Django, com
 
 # Configurações iniciais do django
 
-Instalar o Django no ambiente virtual
-    -pip install django
+### Instalar o Django no ambiente virtual
+    pip install django
+    
+### Criando a pasta de projetos
+    django-admin startproject (nomedoprojeto) . 
+    
+(Em nomeprojeto de um nome ao seu projeto e coloque o "." no final para criar na raiz)
+- vai criar a pasta do seu projeto e o arquivo manage.py. O manage.py é quem gerencia a estrutura do projeto e dentro dele vai criar o arquivo wsgi.py é quem gerencia a parte de servidor, o urls gerencia os links do site, o settings.py quem diz onde vão ficar localizados as pastas, os arquivos e etc.
 
-
-    django-admin startproject nomedoprojeto . 
-(em nomeprojeto de um nome ao seu projeto e coloque o "." para criar na raiz)
-- vai criar a pasta do seu projeto e o arquivo manage.py na raiz. o manage.py é quem gerencia a estrutura do projeto, e dentro da pasta do projeto vai criar o arquivo wsgi.py é quem gerencia a parte de servidor, o urls quem gerencia os links do site, o settings.py ele quem diz onde vao fica localizados as pastas, os arquivos e etc, todas as configuracoesdo projeto.
-
-
-
-
-
-
-vamos criar o admin do site "link do site" (runserver), digite no terminal:
-- python manage.py runserver
-vai criar o link, com congratulations. link criado no localhost
-
-
+### Criando o server local
+    python manage.py runserver
+- Vai criar o link, com congratulations. link criado no localhost com endereço (http://127.0.0.1:8000)
 
 
 
