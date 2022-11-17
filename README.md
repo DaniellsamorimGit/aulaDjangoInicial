@@ -144,23 +144,24 @@ https://www.codigofluente.com.br/configurando-o-django-com-mysql-windows/
 
 <hr>
 
-
-vamos conectar o app ao projeto: 
-em settings ->  installed apps -> e criar uma linha com o nome do seu app assim -> 'nomedafuncinalidade',
-
-exemplo:
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'nomedafuncinalidade',
-]
+# Conectando o app ao projeto
+Em settings ->  installed apps -> crie uma linha com o nome do seu app assim -> 'nomedafuncinalidade
 
 
+	Exemplo:
+	INSTALLED_APPS = [
+	    'django.contrib.admin',
+	    'django.contrib.auth',
+	    'django.contrib.contenttypes',
+	    'django.contrib.sessions',
+	    'django.contrib.messages',
+	    'django.contrib.staticfiles',
+	    'nomedafuncinalidade',
+	]
 
+
+
+<hr>
 
 agora na pasta do nosso projeto vamos definir o link que queremos definir para nossa funcionalidade (assim cada funcionalidade tem seu link proprio), para isso vamos criar um arquivo urls.py dentro da nossa pasta de funcionalidade, e na urls.py "que esta dentro do projeto" a gente aponta pra esse link (compplicado mas basicamente sera link apontando para outro link)
 
@@ -179,9 +180,6 @@ urlpatterns = [
 
 #obs no link sem nada "/" direcione para a nomefuncionalidade.urls isso que esta acontecendo nesta linha
 
-
-TUDO PRONTO AGORA PRIMEIRO PASSO É CRIAR NOSSAS TABELAS DENTRO DO MODELS
-E IMPORTALA ISANDO MAKEMIGRATIONS E MIGRATE
 
 
 
