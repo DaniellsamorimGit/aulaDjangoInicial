@@ -111,11 +111,20 @@ https://www.codigofluente.com.br/configurando-o-django-com-mysql-windows/
 
 <hr>
 
-## Configurando nossa tabela no ADMIN
--- Nossa tabela ainda nao aparece no admin, vamos adicionar dentro da pasta de (funcionalidades) em admin.py:
+## Criando as tabelas
 
-	from .models import Musica
-	admin.site.register(Musica)
+- vamos rodar o migrate e o makemigrations, que cria nossas tabelas com base no arquivo models.py
+
+      python manage.py makemigrations
+      python manage.py migrate
+
+<hr>
+
+## Configurando nossa tabela no ADMIN
+- Nossa tabela ainda nao aparece no admin, vamos adicionar dentro da pasta de (funcionalidades) em admin.py:
+
+      from .models import Musica
+      admin.site.register(Musica)
 
 
 <hr>
@@ -178,15 +187,10 @@ E IMPORTALA ISANDO MAKEMIGRATIONS E MIGRATE
 
 
 
-vamos rodar o migrate e o makemigrations, que atualiza nosso banco de dados:
-	- python manage.py makemigrations
-    - python manage.py migrate
 
 
-Nossa tabela ainda nao aparece no admin, vamos criar dentro da pasta de funcionalidades em admin.py 
 
-	from .models import Musica
-	admin.site.register(Musica)
+
 
 
 
