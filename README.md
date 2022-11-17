@@ -30,25 +30,20 @@ Material didatico com as configurações iniciais para criar um site Django, com
 - Vai criar o link, com congratulations. link criado no localhost com endereço (http://127.0.0.1:8000)
 
 
+<hr>
+
+
+# Pronto criamos toda estrutura do django, agora vamos criar o app (funcionalidades do django) 
+OBS: um projeto pode ter varios app's
+
+    django-admin startapp (nomedafuncinalidade)
+    
+- Funcionalidade dentro de um projeto é o que queremos criar em termos de página HTTP e no banco de dados.
+- Na criação da funcionalidade será criada o arquivo models.pyonde iremos definir as tabelas do nosso banco de dados.
 
 
 
-criamos a estrutura do django, agora vamos criar o app(funcionalidadesdo do django) do nosso projeto (um projeto pode ter varios apps):
-obs: de o nome da sua funcionalidade (s vai ser adicionado no final)
 
-- django-admin startapp nomedafuncinalidade 
-
-criara a funcionalidade com predefinicoes e o arquivo models q será o DB
-
-
-
-vamos criar o superuser (o adm do site)
-antes de tudo rodar o: python manage.py migrate para migrar seu DB
-	
-    - python manage.py createsuperuser
-    - crie o que é pedido (usuario, emaile senha)
-    - agora vc ja pode logar no site com user superuser (django ja cria automaticamnte)
-banco de dados ate o momento nao foi criado em models, vamos apenas acessar a pagina do adm no navegador em http://127.0.0.1:8000/admin
 
 obs: por padrao o django cria o banco de dados no sqlite3, para usar seu banco de dados como Mysql modifique as configuracoes em setings - DATABASES para as configuracoes do seu mysql, exemplo:
 
@@ -69,6 +64,15 @@ mas para gerenciar o mysql instale o:
 OBS: criar usuarios no django por padrao o django ja faz isso, temos que nos preocupar em criar o db somente para nosso app em si.
 
 
+
+
+vamos criar o superuser (o adm do site)
+antes de tudo rodar o: python manage.py migrate para migrar seu DB
+	
+    - python manage.py createsuperuser
+    - crie o que é pedido (usuario, emaile senha)
+    - agora vc ja pode logar no site com user superuser (django ja cria automaticamnte)
+banco de dados ate o momento nao foi criado em models, vamos apenas acessar a pagina do adm no navegador em http://127.0.0.1:8000/admin
 
 
 vamos conectar o app ao projeto: 
