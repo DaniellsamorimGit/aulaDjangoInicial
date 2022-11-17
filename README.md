@@ -41,25 +41,26 @@ OBS: um projeto pode ter varios app's
 - Funcionalidade dentro de um projeto é o que queremos criar em termos de página HTTP e no banco de dados.
 - Na criação da funcionalidade será criada o arquivo models.pyonde iremos definir as tabelas do nosso banco de dados.
 
+<hr>
 
+### Integração com banco de dados MySQL
+- Por padrão o django cria o banco de dados sqlite3, para usar o banco de dados como Mysql modifique as configurações no arquivo setings.py e em DATABASES, modifique as configuações do Django para as configuações mostradas abaixo.
 
+### Configurações MySQL 
 
+	DATABASES = {
+	    'default': {
+		'ENGINE': 'django.db.backends.mysql', 	# default
+		'NAME': 'Mysqlmusic', 			# nome do seu banco de dados
+		'USER': 'xxxxxxxxxxxx', 		# usuario admin
+		'PASSWORD': 'yyyyyyy', 			# senha admin
+		'HOST':'localhost', 			# endereco do db (Encrontra-se no workbench)
+		'PORT':'3306', 				# porta do db (Encrontra-se no workbench)
+	    }
+	}
 
-obs: por padrao o django cria o banco de dados no sqlite3, para usar seu banco de dados como Mysql modifique as configuracoes em setings - DATABASES para as configuracoes do seu mysql, exemplo:
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', #default
-        'NAME': 'Mysqlmusic', #nome do seu banco de dados
-        'USER': 'daniellsamorim', #usuario admin
-        'PASSWORD': 'dsaasd', #senha admin
-        'HOST':'localhost', #endereco do db
-        'PORT':'3306', #porta do db
-    }
-}
-
-mas para gerenciar o mysql instale o:
-	pip install mysqlclient 
+### Importando a biblioteca de gerenciamento do MySQL
+    pip install mysqlclient 
 
 OBS: criar usuarios no django por padrao o django ja faz isso, temos que nos preocupar em criar o db somente para nosso app em si.
 
