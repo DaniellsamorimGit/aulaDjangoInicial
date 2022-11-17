@@ -78,7 +78,7 @@ OBS: O django ja gerencia por si a página admin do site e a criação de novos 
 	    ("rock", "Rock"),
 	)
 
-	class Music(models.Model):
+	class Musica(models.Model):
 	    artista = models.CharField(max_length=500)
 	    album = models.CharField(max_length=500)
 	    thumb = models.ImageField(upload_to='music_images/')
@@ -111,6 +111,15 @@ https://www.codigofluente.com.br/configurando-o-django-com-mysql-windows/
 
 <hr>
 
+## Configurando nossa tabela no ADMIN
+-- Nossa tabela ainda nao aparece no admin, vamos adicionar dentro da pasta de (funcionalidades) em admin.py:
+
+	from .models import Musica
+	admin.site.register(Musica)
+
+
+<hr>
+
 # Criando o superuser (Admin do site)
 	python manage.py createsuperuser
 	
@@ -118,35 +127,13 @@ https://www.codigofluente.com.br/configurando-o-django-com-mysql-windows/
 
 - Agora pode ver sua tabela feita no adm do seu site em (http://127.0.0.1:8000/admin)
 
+<hr>
 
+# instalando pillow
+    pip install pillow
+-Bibliioteca que resolve encaminhamento de imagens dentro do servidor
 
-
-
-
-
-
-agora vamos instalar o pillow, que faz todo tratamento de imagens
-	pip install pillow
-
-
-
-
-
-
-
-
-
-
-
-
-
-vamos criar o superuser (o adm do site)
-antes de tudo rodar o: python manage.py migrate para migrar seu DB
-	
-    - python manage.py createsuperuser
-    - crie o que é pedido (usuario, emaile senha)
-    - agora vc ja pode logar no site com user superuser (django ja cria automaticamnte)
-banco de dados ate o momento nao foi criado em models, vamos apenas acessar a pagina do adm no navegador em http://127.0.0.1:8000/admin
+<hr>
 
 
 vamos conectar o app ao projeto: 
