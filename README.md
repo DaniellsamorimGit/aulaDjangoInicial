@@ -62,7 +62,80 @@ OBS: um projeto pode ter varios app's
 ### Importando a biblioteca de gerenciamento do MySQL
     pip install mysqlclient 
 
-OBS: criar usuarios no django por padrao o django ja faz isso, temos que nos preocupar em criar o db somente para nosso app em si.
+OBS: O django ja gerencia por si a página admin do site e a criação de novos usuários em (http://127.0.0.1:8000/admin)
+
+<hr>
+
+### Agora vamos criar nossas tabelas dentro do models.py
+
+###### Dentro de models.py importe 
+    from django.db import models
+    
+###### Criando as classes para nossas tabelas (essa será nossa tabela no mysql)
+
+	LISTA_CATEGORIA= (
+	    ("forro", "Forró"),
+	    ("rock", "Rock"),
+	)
+
+	class Music(models.Model):
+	    artista = models.CharField(max_length=500)
+	    album = models.CharField(max_length=500)
+	    thumb = models.ImageField(upload_to='music_images/')
+	    #album=models.ForeignKey('Album',on_delete=models.SET_NULL,null=True,blank=True)
+	    categoria = models.CharField(max_length=15, choices=LISTA_CATEGORIA,null=True,blank=True)
+
+
+	    # mudar o modo de exibição da string da classe para titulo do curso no admin
+	    def __str__(self):
+		return (self.artista + " (" + self.album + ")")
+
+<br>
+
+## Criando o banco dentro do MySQL
+- Pra isso crie o banco com o mesmo nome dado nas configurações do Mysql em DATABASE (Mysqlmusic).
+- O django não cria o banco automaticamente como no sqlite, pra isso temos que criar manualmente usando o PROMPT do windows ou no Workbench.
+- Abra o CMD e digite:
+-
+
+	mysql -u root -p
+
+	#vai pedir a senha do seu banco de dados
+	show database #pra ver os bancosque tem criados
+	crate database [nome do banco]
+	show database de novo pra ver se foi criado
+
+	
+- Dúvidas veja o Link de configuracos mais detalhadas:	<br>
+https://www.codigofluente.com.br/configurando-o-django-com-mysql-windows/
+
+<hr>
+
+# Criando o superuser (Admin do site)
+	python manage.py createsuperuser
+	
+	Crie seu usuário, email e senha
+
+- Agora pode ver sua tabela feita no adm do seu site em (http://127.0.0.1:8000/admin)
+
+
+
+
+
+
+
+
+agora vamos instalar o pillow, que faz todo tratamento de imagens
+	pip install pillow
+
+
+
+
+
+
+
+
+
 
 
 
@@ -115,36 +188,6 @@ TUDO PRONTO AGORA PRIMEIRO PASSO É CRIAR NOSSAS TABELAS DENTRO DO MODELS
 E IMPORTALA ISANDO MAKEMIGRATIONS E MIGRATE
 
 
-DENTRO DE MODELS VAMOS IMPORTAR 
-	 from django.db import models
-
-
-e vamos criar nossas classes para cada tabela de banco de dados
-exemplo:
-
-LISTA_CATEGORIA= (
-    ("forro", "Forró"),
-    ("rock", "Rock"),
-)
-
-class Music(models.Model):
-    artista = models.CharField(max_length=500)
-    album = models.CharField(max_length=500)
-    thumb = models.ImageField(upload_to='music_images/')
-    #album=models.ForeignKey('Album',on_delete=models.SET_NULL,null=True,blank=True)
-    categoria = models.CharField(max_length=15, choices=LISTA_CATEGORIA,null=True,blank=True)
-
-
-    # mudar o modo de exibição da string da classe para titulo do curso no admin
-    def __str__(self):
-        return (self.artista + " (" + self.album + ")")
-
-
-
-
-
-agora vamos instalar o pillow, que faz todo tratamento de imagens
-	pip install pillow
 
 
 
@@ -159,24 +202,8 @@ Nossa tabela ainda nao aparece no admin, vamos criar dentro da pasta de funciona
 	admin.site.register(Musica)
 
 
-pronto, agora vamos criar nosso banco de dados, como estamos usando o banco de dados que nao é padrao do django, temos que criar na unha, pra isso vamos abrir o cmd do windows e digitar
 
-	mysql -u root -p
 
-	#vai pedir a senha do seu banco de dados
-	show database #pra ver os bancosque tem criados
-	crate database [nome do banco]
-	show database de novo pra ver se foi criado
-
-	
-duvidas veja o Link de configuracos do banco de dados mysql:	
-https://www.codigofluente.com.br/configurando-o-django-com-mysql-windows/
-
-crie de novo o super user:
-	python manage.py createsuperuser
-
-agora pode ver sua tabela feita no adm do seu site:
-	http://127.0.0.1:8000/admin
 
 
 
