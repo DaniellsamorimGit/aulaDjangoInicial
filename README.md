@@ -14,6 +14,7 @@ Material didático com as configurações iniciais para criação de sites com D
 * [Considerações Finais](#considerações-finais)
 * [Tutorial Deploy](#tutorial-deploy)
 
+<hr>
 # Configurações iniciais do django
 
 ### Instalando Django no ambiente virtual
@@ -44,14 +45,14 @@ App é a funcionalidade do nosso site, como por exemplo server de músicas, pode
 <hr>
 
 # Configurando MySQL
-- Por padrão o django cria o banco de dados sqlite3, para usar o banco de dados como Mysql modifique as configurações no arquivo setings.py e em DATABASES, modifique as configuações do Django para as configuações mostradas abaixo.
+- Por padrão o django cria o banco de dados sqlite3, para usar o banco de dados como Mysql modifique as configurações no arquivo setings.py e em DATABASES, modifique as configuações do Django para as configuações do seu banco, como noexemplo abaixo.
 
 ### Configurações MySQL 
 
 	DATABASES = {
 	    'default': {
 		'ENGINE': 'django.db.backends.mysql', 	# default
-		'NAME': 'Mysqlmusic', 			# nome do seu banco de dados
+		'NAME': 'sqlmusic', 			# nome do seu banco de dados
 		'USER': 'xxxxxxxxxxxx', 		# usuario admin
 		'PASSWORD': 'yyyyyyy', 			# senha admin
 		'HOST':'localhost', 			# endereco do db (Encrontra-se no workbench)
@@ -64,14 +65,14 @@ App é a funcionalidade do nosso site, como por exemplo server de músicas, pode
 
 OBS: O django ja gerencia por si a página admin do site e a criação de novos usuários em (http://127.0.0.1:8000/admin)
 
-<hr>
-
 ### Agora vamos criar nossas tabelas dentro do models.py
 
-###### Dentro de models.py importe 
-    from django.db import models
+- Dentro de models.py importe 
     
-###### Criando as classes para nossas tabelas (essa será nossa tabela no mysql)
+      from django.db import models
+    
+- Criando as classes para nossas tabelas (essa será nossa tabela no mysql)
+-
 
 	LISTA_CATEGORIA= (
 	    ("forro", "Forró"),
@@ -90,20 +91,19 @@ OBS: O django ja gerencia por si a página admin do site e a criação de novos 
 	    def __str__(self):
 		return (self.artista + " (" + self.album + ")")
 
-<br>
+### Criando o banco dentro do MySQL
+- Pra isso crie o banco com o mesmo nome dado nas configurações do Mysql em DATABASE (sqlmusic).
+- O django não cria o banco Mysql automaticamente como acontece com sqlite padrão do django, pra isso temos que criar manualmente usando o PROMPT do windows ou no Workbench.
+- Abra o CMD e digite
 
-## Criando o banco dentro do MySQL
-- Pra isso crie o banco com o mesmo nome dado nas configurações do Mysql em DATABASE (Mysqlmusic).
-- O django não cria o banco automaticamente como no sqlite, pra isso temos que criar manualmente usando o PROMPT do windows ou no Workbench.
-- Abra o CMD e digite:
--
+	  mysql -u root -p
+- Vai pedir a senha do seu banco de dados.
+              
+	  show database 
+- Mostra os bancos que tem criados no MySql.
 
-	mysql -u root -p
-
-	#vai pedir a senha do seu banco de dados
-	show database #pra ver os bancosque tem criados
-	crate database [nome do banco]
-	show database de novo pra ver se foi criado
+	  create database [nome do banco]
+- Cria o banco, para confirmar rode -show database de novo para confirmar.
 
 	
 - Dúvidas veja o Link de configuracos mais detalhadas:	<br>
@@ -111,13 +111,14 @@ https://www.codigofluente.com.br/configurando-o-django-com-mysql-windows/
 
 <hr>
 
-## Criando as tabelas
+## Migrando as tabelas
 
-- vamos rodar o migrate e o makemigrations, que cria nossas tabelas com base no arquivo models.py
+- No terminal rode o migrate e o makemigrations, que cria nossas tabelas com base no arquivo models.py.
 
       python manage.py makemigrations
       python manage.py migrate
-
+- Se tudo deu certo, agora suas tabelas foram criadas em seu database.
+- 
 <hr>
 
 ## Configurando nossa tabela no ADMIN
