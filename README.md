@@ -389,5 +389,14 @@ Abra o arquivo homepage.html e vamos adicionar as linhas:
 ### Entendendo o caminho da imagem dinamica
 Vamos explicar como essas imagens serão mostradas dinâmicamente no HTML, veja na linha:
 
+    <img src="media/{{ image }}">
+    
+- Básicamente o codigo HTML acima esté exibindo uma umagem que está no caminho src= MEDIA/ (onde media é a pasta do arquivo)
+- e {{ image }} é a variável que pegamos de dentro da nossa lista com os caminhos das imagens no database.
 
+### Tudo pronto!
+Abrs o admin do site em (http://127.0.0.1:8000/admin) cadastre fotos que quiser e seu site irá mostrar todas as fotos cadastradas
+
+<hr>
+# SUCESSO!!!
 
