@@ -321,16 +321,73 @@ Agora dentro dessa pasta templates crie o arquivo homepage.html e dentro dele va
 - Pronto, agora va no navegador e veja sua homepage no ar (http://127.0.0.1:8000/)
 - Está feita nossa página inicial, para encerrar vamos fazer com que os arquivos estáticos e de media sejam exibitos na homepage.
 
+<hr>
 
+# Mostrando arquivos no template
 
+Agora chegou a hora de mostrar na nossa página os arquivos estáticos e os de media, vamos começar com o estático, pra isso baixe a imagem abaixo e coloque dentro da sua parta 'static', com o nome python.png:
 
+![python](https://user-images.githubusercontent.com/115194365/202737694-2b046121-6f68-4c22-9320-686c0f0194ec.png)
 
+### Agora na nossa template vamos abrir a imagem adicionando a linha:
 
+    <img src="static/images/python.png">
+    
+Vai ficar assim:
 
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	    <meta charset="UTF-8">
+	    <title>Meu site</title>
+	</head>
+	<body>
+	<h1>Meu primeiro site Django com arquivos estáticos e de media</h1>
+	<br>
+	<img src="static/images/python.png">
+	</body>
+	</html>
 
+Pronto! sua imagem estática ja será mostrada na sua página HTML.
 
+### Agora vamos mostrar nossas imagens media
+Arquivos de media é um pouco mais complicado, pois são arquivos no qual salvamos no nosso banco de dados o caminho para elas, esse caminho pode ser uma pasta do seu computador, um servidor na nuvem e etc. Porém temos que pegar esse caminho no banco de dados através de uma busca (Query) e depois exibir o que queremos em nosso HTML.
 
+##### :construction: MÃOS A OBRA!
 
+Como disse, temos que buscar o arquivo no banco de dados (no caso as fotos de perfil), então vamos criar um arquivo na pasta da nossa funcionalidade chamado context.py, dentro dele vamos fazer a nossa busca e disponibilizar para nosso HTML um dicionário (lista ou tupla), contendo as informações que queremos.
+Abra o arquivo context.py criado e vamos edita-lo:
+
+	from .models import Musica
+
+	def lista_imagens(request):
+	    lista_image = []
+	    for urlimagem in Musica.objects.values_list('thumb'):
+		lista_image.append(urlimagem[0])
+		print(urlimagem[0])
+
+	    return {"lista_image": lista_image}
+
+- Primeiro importamos nosso database Musica
+- Definimos uma função chamada "lista_imagens" e dentro dela criamos uma busca (query) no nosso banco:
+
+    Musica.objects.values_list('thumb')
+
+- Esse query praticamente vai no banco MUSICA, pega todos OBJETOS e filtra pelos valores chamados 'thumb', ou seja thumb sao os caminhos para nossas fotos!
+- agora a função retorna essa lista contendo os caminhos das imagens
+
+### vamos no HTML pegar essa lista e exibir as imagens do banco de dados:
+Abra o arquivo homepage.html e vamos adicionar as linhas:
+
+	{% for image in lista_image %}
+	<img src="media/{{ image }}">
+	{% endfor %}
+
+- Acima, criamos um for onde pegaremos cada imagem dentro da nossa lista e exibiremos no html.
+- Note que para criar um for em python dentro de um arquivo HTML temos que delimitar o comando dentro de "{% comando %}" e encerrar com "{% endcomando %}".
+
+### Entendendo o caminho da imagem dinamica
+Vamos explicar como essas imagens serão mostradas dinâmicamente no HTML, veja na linha:
 
 
 
