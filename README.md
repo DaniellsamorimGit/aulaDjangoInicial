@@ -6,6 +6,8 @@ Material didático com as configurações iniciais para criação de sites com D
 # Índice
 
 * [Descrição](#descrição)
+* [Objetivo](#objetivo)
+* [Autor](#autor)
 * [Configurações iniciais do django](#configurações-iniciais-do-django)
 * [Criando nosso APP](#criando-nosso-app)
 * [Configurando MySQL](#configurando-mysql)
@@ -15,7 +17,25 @@ Material didático com as configurações iniciais para criação de sites com D
 * [Configurando arquivos de media](#configurando-arquivos-de-media)
 * [Criando nossa HomePage](#criando-nossa-homePage)
 
+<hr>
 
+# Objetivo
+Este tutorial tem objetivo de criarmos nosso primeiro site com Django, passando por todas configurações iniciais e utilizando o banco de dados Mysql para cadastro de arquivos de media (arquivos dinâmicos), ao fim deste tutorial teremos construído um site com uma homepage mostrando imagem estática e imagens cadastradas no banco de dados.
+
+<hr>
+
+# Autor
+
+| [<img src="https://user-images.githubusercontent.com/115194365/202005566-f6278b6c-4f75-416f-b01c-e79b8d04f02e.jpg" width=115><br><sub>Daniel de Souza Amorim</sub>](https://github.com/DaniellsamorimGit) |
+| :---: | 
+
+
+#### Mais sobre o autor: <br>
+Graduado em Engenharia de computação em 2010 pela Universidade Potiguar do RN;<br>
+Pós-graduado em Petróleo e gás;<br>
+Desenvolvedor de dispositivos embarcados, microcontrolados, automação de sistemas;<br>
+Desenvolvedor de placas de CI, prototipagem e desenvolvimento;<br>
+Amante de tecnologias e desenvolvimento Python.<br>
 
 <hr>
 
