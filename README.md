@@ -393,9 +393,38 @@ Vamos explicar como essas imagens serão mostradas dinâmicamente no HTML, veja 
     
 - Básicamente o codigo HTML acima esté exibindo uma umagem que está no caminho src= MEDIA/ (onde media é a pasta do arquivo)
 - e {{ image }} é a variável que pegamos de dentro da nossa lista com os caminhos das imagens no database.
+- Obs: Quando queremos mostrar no HTML uma variável temos que delimita-la em chaves duplas. EXEMPLO: {{ Nome_variavel }}.
 
 ### Tudo pronto!
-Abrs o admin do site em (http://127.0.0.1:8000/admin) cadastre fotos que quiser e seu site irá mostrar todas as fotos cadastradas
+Abra o admin do site em (http://127.0.0.1:8000/admin) cadastre fotos que quiser e seu site irá mostrar todas as fotos cadastradas
+
+O seu arquivo html deve ficar assim:
+
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	    <meta charset="UTF-8">
+	    <title>Meu site</title>
+	</head>
+	    <body>
+		<h1>Meu primeiro site Django com arquivos estaticos e de media</h1>
+		<hr>
+		<h3>Meu arquivo estático:</h3>
+		<br>
+		<img src="static/images/python.png">
+		<hr>
+		<h3>Meus arquivos dinâmicos (media):</h3>
+		<br>
+		{% for image in lista_image %}
+		<img src="media/{{ image }}">
+		{% endfor %}
+	    </body>
+	</html>
+
+O site desta forma:
+
+![Captura de tela 2022-11-18 131145](https://user-images.githubusercontent.com/115194365/202750258-2fe63b2c-86cb-476b-bb59-ca4b1d62a288.png)
+
 
 <hr>
 # SUCESSO!!!
