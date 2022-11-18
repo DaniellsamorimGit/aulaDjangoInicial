@@ -14,13 +14,13 @@ Material didático com as configurações iniciais para criar um site Django, co
 * [Criando o super user](#criando-o-super-user)
 * [Configurações básicas finais](#configurações-básicas-finais)
 * [Configurando arquivos estáticos](#configurando-arquivos-estáticos)
-* [Configurando arquivos de media](#configurando-arquivos-de-media)
+* [Configurando arquivos dinâmicos](#configurando-arquivos-dinâmicos)
 * [Criando nossa HomePage](#criando-nossa-homePage)
 
 <hr>
 
 # Objetivo
-Este tutorial tem objetivo de criarmos nosso primeiro site com Django, passando por todas configurações iniciais e utilizando o banco de dados Mysql para cadastro de arquivos de media (arquivos dinâmicos), ao fim deste tutorial teremos construído um site com uma homepage mostrando imagem estática e imagens cadastradas no banco de dados.
+Este tutorial tem objetivo de criarmos nosso primeiro site com Django, passando por todas configurações iniciais e utilizando o banco de dados Mysql para cadastro de arquivos dinâmicos, ao fim deste tutorial teremos construído um site com uma homepage mostrando imagem estática e imagens cadastradas no banco de dados pelos usuários.
 
 <hr>
 
@@ -194,7 +194,7 @@ Vamos ver o que há na pasta urls.py do projeto:
 	]
 - Temos o caminho 'admin/' para a url de admin do nosso site.
 
-Vamos criar a urls.py para nossafuncionalidade (musica), pra isso entre na pasta da sua funcionalidade e crie o arquivo urls.py, não faremos nada ainda, apenas vamos apontar o projeto para essa url, pra isso,dentro de urls.py do projeto importe:
+Vamos criar a urls.py para nossa funcionalidade (musica), pra isso entre na pasta da sua funcionalidade e crie o arquivo urls.py, não faremos nada ainda, apenas vamos apontar o projeto para essa url, pra isso,dentro de urls.py do projeto importe:
 
     from django.urls import include 
 Agora vamos apontar para a url da funcionalidade acrescentando a linha abaixo:
@@ -203,12 +203,12 @@ Agora vamos apontar para a url da funcionalidade acrescentando a linha abaixo:
 	    path('admin/', admin.site.urls),
 	    path('/', include('nomefuncionalidade.urls')) #leia obs
 	]
-Pronto, agora esta feito o link do projeto para os links das suas funcionalidades, e la dentro vc poderá criar as urls das suas páginas. Vamos configurar agora os arquivos estáticos e mais a frente faremos nossa primeira página funcional.
+Pronto, agora está feito o link do projeto para os links das suas funcionalidades, e la dentro poderá criar as urls das suas páginas. Vamos configurar agora os arquivos estáticos e mais a frente faremos nossa primeira página funcional.
 
 <hr>
 
 # Configurando arquivos estáticos 
-Antes de criar nossa primeira página em si, vamos configurar os arquivos estáticos e de media, os arquivos estaticos são aqueles que não mudam no nosso site, são fixos, como as imagens de fundo por exemplo, já arquivos de media são arquivos dinâmicos, que podem mudar constantemente em nosso site como por exemplo a foto de um perfil de um usuário.
+Antes de criar nossa primeira página em si, vamos configurar os arquivos estáticos e dinâmicos, os arquivos estaticos são aqueles que não mudam no nosso site, são fixos, como as imagens de fundo por exemplo, já arquivos dinâmicos são arquivos que podem mudar constantemente em nosso site como por exemplo a foto de um perfil de um usuário.
 
 Vamos configurar tudo no arquivo settings.py:
 
@@ -216,7 +216,7 @@ Vamos configurar tudo no arquivo settings.py:
 
     STATIC_URL = 'static/'
 
-### Especifique o local da sua pasta de arquivos staticos:
+### Especifique o local da sua pasta de arquivos estáticos:
 
 	STATICFILES_DIRS = [
 	    BASE_DIR / 'static'
@@ -241,8 +241,8 @@ e importe la dentro:
 
 <hr>
 
-# Configurandos arquivos de media
-Agora vamos configurar os arquivos de media, como ja explicado anteriomente:
+# Configurandos arquivos dinâmicos
+Agora vamos configurar os arquivos dinâmicos, como ja explicado anteriomente:
 <br>
 Vamos definir em settings essas variaveis:
 
@@ -283,12 +283,12 @@ Lembra dele? o  arquivo que comanda todas as urls do nosso projeto? ele deve est
 	urlpatterns+=static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
 	urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
-Agora nos temos os links para as urls das funcionalidadees, para o admin, e para as pastas estaticas e de media! 
+Agora nos temos os links para as urls das funcionalidades, para o admin e para as pastas estaticas e de media! 
 
 <hr>
 
 # Criando nossa HomePage
-A home page é a página inicial do nosso site, com ela podemos fazer encaminhamento para outros links (outras páginas dentro do seu projeto), pra sso precisamos entender sobre 3 arquivos que o próprio django criou pra ente dentro da pasta defuncionalidades, são eles:
+A home page é a página inicial do nosso site, com ela podemos fazer encaminhamento para outros links (outras páginas dentro do seu projeto), pra isso precisamos entender sobre 3 arquivos que o próprio django criou pra ente dentro da pasta defuncionalidades, são eles:
 - URLS.PY: Aqui definimos as urls (links) para nossas páginas.
 - VIEWS.PY: A view é quem vai dizer o que acontece (funções) antes de abrir a nossa template.
 - TEMPLATES.HTML: è a parte visual do site que contém marcações HTML, CSS, scripts java etc.
