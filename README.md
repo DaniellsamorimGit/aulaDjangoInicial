@@ -1,7 +1,7 @@
 # Descrição
 
 ## Material didático de Django + MySQL + arquivos estáticos e de media
-Material didático com as configurações iniciais para criação de sites com Django, integração com banco de dados MySQL e configurações de arquivos estáticos e de media (arquivos enviados pelos usuários).
+Material didático com as configurações iniciais para criar um site Django, com integração com banco de dados MySQL, e configurações de arquivos estáticos e dinâmicos, onde iremos mostrar na homepage imagens estáticas e imagens enviadas pelo usuário.
 
 # Índice
 
