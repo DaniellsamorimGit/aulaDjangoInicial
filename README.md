@@ -13,6 +13,8 @@ Material didático com as configurações iniciais para criação de sites com D
 * [Configurações básicas finais](#configurações-básicas-finais)
 * [Configurando arquivos estáticos](#configurando-arquivos-estáticos)
 * [Configurando arquivos de media](#configurando-arquivos-de-media)
+* [Criando nossa HomePage](#criando-nossa-homePage)
+
 
 
 <hr>
@@ -119,7 +121,7 @@ No terminal rode o migrate e o makemigrations, que cria nossas tabelas com base 
       python manage.py makemigrations
       python manage.py migrate
 - Se tudo deu certo, agora suas tabelas foram criadas em seu database.
-- 
+- OBS: Caso dê erro instale a biblioteca pillow (tópico mais abaixo).
 
 
 ### Configurando nossa tabela no ADMIN
@@ -138,13 +140,6 @@ Super user é o administrador do site, aquele com todasas permissões.
 	
 - Crie seu usuario e senha.
 - Agora pode ver sua tabela feita no adm do seu site em (http://127.0.0.1:8000/admin)
-
-
-### instalando pillow
-Pillow faz parte da biblioteca PIL de Imagens do Python, é um pacote que expõe muitas funções para manipular imagens a partir de um script Python.
-
-    pip install pillow
-
 
 <hr>
 
@@ -242,6 +237,15 @@ Pronto, agora vc pode entrar no seu admin e baixar os arquivos de media para seu
 
 <hr>
 
+# Instalando pillow
+Pillow faz parte da biblioteca PIL de Imagens do Python, é um pacote que expõe muitas funções para manipular imagens a partir de um script Python.
+Atenção, no momento da migração do database, caso essa biblioteca não esteja instalada pode dar erro.
+
+    pip install pillow
+
+
+<hr>
+
 ### Vamos ver como ficou nosso arquivo URLS.PY
 Lembra dele? o  arquivo que comanda todas as urls do nosso projeto? ele deve estar assim:
 
@@ -263,14 +267,59 @@ Agora nos temos os links para as urls das funcionalidadees, para o admin, e para
 
 <hr>
 
+# Criando nossa HomePage
+A home page é a página inicial do nosso site, com ela podemos fazer encaminhamento para outros links (outras páginas dentro do seu projeto), pra sso precisamos entender sobre 3 arquivos que o próprio django criou pra ente dentro da pasta defuncionalidades, são eles:
+- URLS.PY: Aqui definimos as urls (links) para nossas páginas.
+- VIEWS.PY: A view é quem vai dizer o que acontece (funções) antes de abrir a nossa template.
+- TEMPLATES.HTML: è a parte visual do site que contém marcações HTML, CSS, scripts java etc.
+Dito isso, lembre-se, sempre que criamos uma página, temos que configurar esses 3 arquivos acima, vamos começar editando a url.py.
+
+### Editando arquivo URLS.PY
+
+Edite seu arquivo urls.py cpnforma abaixo:
+
+	from django.urls import path
+	from .views import homepage
+
+	urlpatterns = [
+	    path('', homepage)
+	]
+- Note que importamos dentro de .views (do arquivo views) a nossa função 'homepage' e criamos em urlpatterns o link pra ela, então agora vamos criar essa função la em views?
+
+### Editando arquivo VIWES.PY
+
+Vamos definir nossa função homepage dentro da view, pra issoedite seu arquivo views.py conforme abaixo:
+
+	from django.shortcuts import render
+
+	def homepage(request):
+
+	    return render (request, 'homepage.html')
+
+- Assim definimos a função homepage que recebe parametros request (são requisições que acontecem em nosso site, POST ou GET), feito isso a função retorna 2 coisas, o próprio request e a pagina HTML que chamamos de homepage.html. Então vamos criar nossa página html (template)?
 
 
+### Criando o template
 
+Antes de criar nosso template temos que criar uma pasta onde ficarão armazenadas as nossas páginas, pra  isso vamos criar dentro da raiz da pasta de nossa funcionalidade uma pasta chamada templates (escrito por padrão desta forma, pois assim o django vai reconhecer). Veja figura abaixo:
 
+![Captura de tela 2022-11-18 102118](https://user-images.githubusercontent.com/115194365/202714738-d2df5db4-7846-42f9-98b3-6c62a4b59071.png)
 
+Agora dentro dessa pasta templates crie o arquivo homepage.html e dentro dele vamos definir:
 
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	    <meta charset="UTF-8">
+	    <title>Meu site</title>
+	</head>
+	<body>
+	<h1>Meu primeiro site Django com arquivos estáticos e de media</h1>
+	</body>
+	</html>
 
-
+- Pronto, agora va no navegador e veja sua homepage no ar (http://127.0.0.1:8000/)
+- Está feita nossa página inicial, para encerrar vamos fazer com que os arquivos estáticos e de media sejam exibitos na homepage.
 
 
 
