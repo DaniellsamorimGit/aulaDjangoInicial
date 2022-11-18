@@ -1,49 +1,49 @@
 # Descrição
 
-## Aula didática de Django + MySQL + arquivos estáticos e de media
-Material didatico com as configurações iniciais para criar um site Django, com integração com banco de dados MySQL, e configuracoes de arquivos estáticos e de media, onde iremos mostrar na home page imagens estáticas e imagens de media enviadas pelo usuário.
+## Material didático de Django + MySQL + arquivos estáticos e de media
+Material didático com as configurações iniciais para criação de sites com Django, integração com banco de dados MySQL e configurações de arquivos estáticos e de media (arquivos enviados pelos usuários).
 
 # Índice
 
 * [Descrição](#descrição)
 * [Configurações iniciais do django](#configurações-iniciais-do-django)
+* [Criando nosso APP](#criando-nosso-app)
 
-* [Funcionalidades e Demonstração da Aplicação](#funcionalidades-e-demonstração-da-aplicação)
-* [Tecnologias utilizadas](#tecnologias-utilizadas)
+* [Configurando MySQL](#configurando-mysql)
 * [Desenvolvedor](#desenvolvedor)
 * [Considerações Finais](#considerações-finais)
 * [Tutorial Deploy](#tutorial-deploy)
 
 # Configurações iniciais do django
 
-### Instalar o Django no ambiente virtual
+### Instalando Django no ambiente virtual
     pip install django
     
 ### Criando a pasta de projetos
     django-admin startproject (nomedoprojeto) . 
     
-(Em nomeprojeto de um nome ao seu projeto e coloque o "." no final para criar na raiz)
+- Em nomeprojeto de um nome ao seu projeto e coloque o "." no final para criar na raiz.
 - vai criar a pasta do seu projeto e o arquivo manage.py. O manage.py é quem gerencia a estrutura do projeto e dentro dele vai criar o arquivo wsgi.py é quem gerencia a parte de servidor, o urls gerencia os links do site, o settings.py quem diz onde vão ficar localizados as pastas, os arquivos e etc.
 
 ### Criando o server local
     python manage.py runserver
 - Vai criar o link, com congratulations. link criado no localhost com endereço (http://127.0.0.1:8000)
-
+- Pronto, a estrutura principal do DJANGO foicriada.
 
 <hr>
 
 
-# Pronto criamos toda estrutura do django, agora vamos criar o app (funcionalidades do django) 
-OBS: um projeto pode ter varios app's
+# Criando nosso APP 
+App é a funcionalidade do nosso site, como por exemplo server de músicas, pode ter "cadastro de artistas", "cadastro de músicas" e etc...
 
     django-admin startapp (nomedafuncinalidade)
     
 - Funcionalidade dentro de um projeto é o que queremos criar em termos de página HTTP e no banco de dados.
-- Na criação da funcionalidade será criada o arquivo models.pyonde iremos definir as tabelas do nosso banco de dados.
+- Na criação da funcionalidade será criada o arquivo models.py onde iremos definir as tabelas do nosso banco de dados.
 
 <hr>
 
-### Integração com banco de dados MySQL
+# Configurando MySQL
 - Por padrão o django cria o banco de dados sqlite3, para usar o banco de dados como Mysql modifique as configurações no arquivo setings.py e em DATABASES, modifique as configuações do Django para as configuações mostradas abaixo.
 
 ### Configurações MySQL 
