@@ -15,6 +15,7 @@ Material didático com as configurações iniciais para criação de sites com D
 * [Tutorial Deploy](#tutorial-deploy)
 
 <hr>
+
 # Configurações iniciais do django
 
 ### Instalando Django no ambiente virtual
