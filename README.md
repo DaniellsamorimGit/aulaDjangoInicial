@@ -6,6 +6,8 @@ Material didático com as configurações iniciais para criação de sites com D
 # Índice
 
 * [Descrição](#descrição)
+* [Objetivo](#objetivo)
+* [Autor](#autor)
 * [Configurações iniciais do django](#configurações-iniciais-do-django)
 * [Criando nosso APP](#criando-nosso-app)
 * [Configurando MySQL](#configurando-mysql)
@@ -15,7 +17,25 @@ Material didático com as configurações iniciais para criação de sites com D
 * [Configurando arquivos de media](#configurando-arquivos-de-media)
 * [Criando nossa HomePage](#criando-nossa-homePage)
 
+<hr>
 
+# Objetivo
+Este tutorial tem objetivo de criarmos nosso primeiro site com Django, passando por todas configurações iniciais e utilizando o banco de dados Mysql para cadastro de arquivos de media (arquivos dinâmicos), ao fim deste tutorial teremos construído um site com uma homepage mostrando imagem estática e imagens cadastradas no banco de dados.
+
+<hr>
+
+# Autor
+
+| [<img src="https://user-images.githubusercontent.com/115194365/202005566-f6278b6c-4f75-416f-b01c-e79b8d04f02e.jpg" width=115><br><sub>Daniel de Souza Amorim</sub>](https://github.com/DaniellsamorimGit) |
+| :---: | 
+
+
+#### Mais sobre o autor: <br>
+Graduado em Engenharia de computação em 2010 pela Universidade Potiguar do RN;<br>
+Pós-graduado em Petróleo e gás;<br>
+Desenvolvedor de dispositivos embarcados, microcontrolados, automação de sistemas;<br>
+Desenvolvedor de placas de CI, prototipagem e desenvolvimento;<br>
+Amante de tecnologias e desenvolvimento Python.<br>
 
 <hr>
 
@@ -321,16 +341,112 @@ Agora dentro dessa pasta templates crie o arquivo homepage.html e dentro dele va
 - Pronto, agora va no navegador e veja sua homepage no ar (http://127.0.0.1:8000/)
 - Está feita nossa página inicial, para encerrar vamos fazer com que os arquivos estáticos e de media sejam exibitos na homepage.
 
+<hr>
+
+# Mostrando arquivos no template
+
+Agora chegou a hora de mostrar na nossa página os arquivos estáticos e os de media, vamos começar com o estático, pra isso baixe a imagem abaixo e coloque dentro da sua parta 'static', com o nome python.png:
+
+![python](https://user-images.githubusercontent.com/115194365/202737694-2b046121-6f68-4c22-9320-686c0f0194ec.png)
+
+### Agora na nossa template vamos abrir a imagem adicionando a linha:
+
+    <img src="static/images/python.png">
+    
+Vai ficar assim:
+
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	    <meta charset="UTF-8">
+	    <title>Meu site</title>
+	</head>
+	<body>
+	<h1>Meu primeiro site Django com arquivos estáticos e de media</h1>
+	<br>
+	<img src="static/images/python.png">
+	</body>
+	</html>
+
+Pronto! sua imagem estática ja será mostrada na sua página HTML.
+
+### Agora vamos mostrar nossas imagens media
+Arquivos de media é um pouco mais complicado, pois são arquivos no qual salvamos no nosso banco de dados o caminho para elas, esse caminho pode ser uma pasta do seu computador, um servidor na nuvem e etc. Porém temos que pegar esse caminho no banco de dados através de uma busca (Query) e depois exibir o que queremos em nosso HTML.
+
+##### :construction: MÃOS A OBRA!
+
+Como disse, temos que buscar o arquivo no banco de dados (no caso as fotos de perfil), então vamos criar um arquivo na pasta da nossa funcionalidade chamado context.py, dentro dele vamos fazer a nossa busca e disponibilizar para nosso HTML um dicionário (lista ou tupla), contendo as informações que queremos.
+Abra o arquivo context.py criado e vamos edita-lo:
+
+	from .models import Musica
+
+	def lista_imagens(request):
+	    lista_image = []
+	    for urlimagem in Musica.objects.values_list('thumb'):
+		lista_image.append(urlimagem[0])
+		print(urlimagem[0])
+
+	    return {"lista_image": lista_image}
+
+- Primeiro importamos nosso database Musica
+- Definimos uma função chamada "lista_imagens" e dentro dela criamos uma busca (query) no nosso banco:
+
+    Musica.objects.values_list('thumb')
+
+- Esse query praticamente vai no banco MUSICA, pega todos OBJETOS e filtra pelos valores chamados 'thumb', ou seja thumb sao os caminhos para nossas fotos!
+- agora a função retorna essa lista contendo os caminhos das imagens
+
+### vamos no HTML pegar essa lista e exibir as imagens do banco de dados:
+Abra o arquivo homepage.html e vamos adicionar as linhas:
+
+	{% for image in lista_image %}
+	<img src="media/{{ image }}">
+	{% endfor %}
+
+- Acima, criamos um for onde pegaremos cada imagem dentro da nossa lista e exibiremos no html.
+- Note que para criar um for em python dentro de um arquivo HTML temos que delimitar o comando dentro de "{% comando %}" e encerrar com "{% endcomando %}".
+
+### Entendendo o caminho da imagem dinamica
+Vamos explicar como essas imagens serão mostradas dinâmicamente no HTML, veja na linha:
+
+    <img src="media/{{ image }}">
+    
+- Básicamente o codigo HTML acima esté exibindo uma umagem que está no caminho src= MEDIA/ (onde media é a pasta do arquivo)
+- e {{ image }} é a variável que pegamos de dentro da nossa lista com os caminhos das imagens no database.
+- Obs: Quando queremos mostrar no HTML uma variável temos que delimita-la em chaves duplas. EXEMPLO: {{ Nome_variavel }}.
+
+### Tudo pronto!
+Abra o admin do site em (http://127.0.0.1:8000/admin) cadastre fotos que quiser e seu site irá mostrar todas as fotos cadastradas
+
+O seu arquivo html deve ficar assim:
+
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	    <meta charset="UTF-8">
+	    <title>Meu site</title>
+	</head>
+	    <body>
+		<h1>Meu primeiro site Django com arquivos estaticos e de media</h1>
+		<hr>
+		<h3>Meu arquivo estático:</h3>
+		<br>
+		<img src="static/images/python.png">
+		<hr>
+		<h3>Meus arquivos dinâmicos (media):</h3>
+		<br>
+		{% for image in lista_image %}
+		<img src="media/{{ image }}">
+		{% endfor %}
+	    </body>
+	</html>
+
+O site desta forma:
+
+![Captura de tela 2022-11-18 131145](https://user-images.githubusercontent.com/115194365/202750258-2fe63b2c-86cb-476b-bb59-ca4b1d62a288.png)
 
 
+<hr>
 
-
-
-
-
-
-
-
-
-
+# SUCESSO!!!
 
