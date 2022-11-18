@@ -46,7 +46,7 @@ App é a funcionalidade do nosso site, como por exemplo server de músicas, pode
 <hr>
 
 # Configurando MySQL
-- Por padrão o django cria o banco de dados sqlite3, para usar o banco de dados como Mysql modifique as configurações no arquivo setings.py e em DATABASES, modifique as configuações do Django para as configuações do seu banco, como noexemplo abaixo.
+Por padrão o django cria o banco de dados sqlite3, para usar o banco de dados como Mysql modifique as configurações no arquivo setings.py e em DATABASES, modifique as configuações do Django para as configuações do seu banco, como noexemplo abaixo.
 
 ### Configurações MySQL 
 
@@ -64,7 +64,7 @@ App é a funcionalidade do nosso site, como por exemplo server de músicas, pode
 ### Importando a biblioteca de gerenciamento do MySQL
     pip install mysqlclient 
 
-OBS: O django ja gerencia por si a página admin do site e a criação de novos usuários em (http://127.0.0.1:8000/admin)
+- OBS: O django ja gerencia por si a página admin do site e a criação de novos usuários em (http://127.0.0.1:8000/admin)
 
 ### Agora vamos criar nossas tabelas dentro do models.py
 
@@ -93,9 +93,8 @@ OBS: O django ja gerencia por si a página admin do site e a criação de novos 
 		return (self.artista + " (" + self.album + ")")
 
 ### Criando o banco dentro do MySQL
-- Pra isso crie o banco com o mesmo nome dado nas configurações do Mysql em DATABASE (sqlmusic).
-- O django não cria o banco Mysql automaticamente como acontece com sqlite padrão do django, pra isso temos que criar manualmente usando o PROMPT do windows ou no Workbench.
-- Abra o CMD e digite
+
+O django não cria o banco Mysql automaticamente como acontece com sqlite padrão do django, pra isso temos que criar manualmente usando o PROMPT do windows ou no Workbench. Abra o CMD e digite:
 
 	  mysql -u root -p
 - Vai pedir a senha do seu banco de dados.
@@ -104,7 +103,7 @@ OBS: O django ja gerencia por si a página admin do site e a criação de novos 
 - Mostra os bancos que tem criados no MySql.
 
 	  create database [nome do banco]
-- Cria o banco, para confirmar rode -show database de novo para confirmar.
+- Cria o bancocom o mesmo nome dado nas configurações do Mysql em DATABASE -> NAME (sqlmusic). Para confirmar rode -show database.
 
 	
 - Dúvidas veja o Link de configuracos mais detalhadas:	<br>
