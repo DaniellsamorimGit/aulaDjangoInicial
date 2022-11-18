@@ -8,11 +8,10 @@ Material didático com as configurações iniciais para criação de sites com D
 * [Descrição](#descrição)
 * [Configurações iniciais do django](#configurações-iniciais-do-django)
 * [Criando nosso APP](#criando-nosso-app)
-
 * [Configurando MySQL](#configurando-mysql)
-* [Desenvolvedor](#desenvolvedor)
-* [Considerações Finais](#considerações-finais)
-* [Tutorial Deploy](#tutorial-deploy)
+* [Criando o super user](#criando-o-super-user)
+* [Configurações básicas finais](#configurações-básicas-finais)
+* [Configurando arquivos estáticos e de media](#configurando-arquivos-estáticos-e-de-media)
 
 <hr>
 
@@ -46,7 +45,7 @@ App é a funcionalidade do nosso site, como por exemplo server de músicas, pode
 <hr>
 
 # Configurando MySQL
-Por padrão o django cria o banco de dados sqlite3, para usar o banco de dados como Mysql modifique as configurações no arquivo setings.py e em DATABASES, modifique as configuações do Django para as configuações do seu banco, como noexemplo abaixo.
+Por padrão o django cria o banco de dados sqlite3, para usar o banco de dados como Mysql modifique as configurações no arquivo setings.py e em DATABASES, mude as configuações do Django para as configuações do seu banco, como no exemplo abaixo.
 
 ### Configurações MySQL 
 
@@ -96,57 +95,61 @@ Por padrão o django cria o banco de dados sqlite3, para usar o banco de dados c
 
 O django não cria o banco Mysql automaticamente como acontece com sqlite padrão do django, pra isso temos que criar manualmente usando o PROMPT do windows ou no Workbench. Abra o CMD e digite:
 
-	  mysql -u root -p
-- Vai pedir a senha do seu banco de dados.
-              
-	  show database 
-- Mostra os bancos que tem criados no MySql.
+    mysql -u root -p
+Vai pedir a senha do seu banco de dados.
 
-	  create database [nome do banco]
-- Cria o bancocom o mesmo nome dado nas configurações do Mysql em DATABASE -> NAME (sqlmusic). Para confirmar rode -show database.
+    show database 
+Mostra os bancos que tem criados no MySql.
+
+    create database [nome do banco]
+Cria o banco com o mesmo nome dado nas configurações do Mysql em DATABASE -> NAME (sqlmusic). Para confirmar rode -show database.
 
 	
 - Dúvidas veja o Link de configuracos mais detalhadas:	<br>
 https://www.codigofluente.com.br/configurando-o-django-com-mysql-windows/
 
-<hr>
 
-## Migrando as tabelas
 
-- No terminal rode o migrate e o makemigrations, que cria nossas tabelas com base no arquivo models.py.
+### Migrando as tabelas
+
+No terminal rode o migrate e o makemigrations, que cria nossas tabelas com base no arquivo models.py.
 
       python manage.py makemigrations
       python manage.py migrate
 - Se tudo deu certo, agora suas tabelas foram criadas em seu database.
 - 
+
+
+### Configurando nossa tabela no ADMIN
+Nossa tabela ainda nao aparece no admin, vamos adicionar dentro da pasta de (funcionalidades) em admin.py:
+
+    from .models import Musica
+    admin.site.register(Musica)
+- Onde 'Musica' é o nome da tabela criada dentro de models.py.
+
 <hr>
 
-## Configurando nossa tabela no ADMIN
-- Nossa tabela ainda nao aparece no admin, vamos adicionar dentro da pasta de (funcionalidades) em admin.py:
+# Criando o super user 
+Super user é o administrador do site, aquele com todasas permissões.
 
-      from .models import Musica
-      admin.site.register(Musica)
-
-
-<hr>
-
-# Criando o superuser (Admin do site)
-	python manage.py createsuperuser
+    python manage.py createsuperuser
 	
-	Crie seu usuário, email e senha
-
+- Crie seu usuario e senha.
 - Agora pode ver sua tabela feita no adm do seu site em (http://127.0.0.1:8000/admin)
 
-<hr>
 
-# instalando pillow
+### instalando pillow
+Pillow faz parte da biblioteca PIL de Imagens do Python, é um pacote que expõe muitas funções para manipular imagens a partir de um script Python.
+
     pip install pillow
--Bibliioteca que resolve encaminhamento de imagens dentro do servidor
+
 
 <hr>
 
-# Conectando o app ao projeto
-Em settings ->  installed apps -> crie uma linha com o nome do seu app assim -> 'nomedafuncinalidade
+# Configurações básicas finais
+
+### Conectando o app ao projeto
+Em settings ->  installed apps -> crie uma linha com o nome do seu app (nomedafuncinalidade)
 
 
 	Exemplo:
@@ -164,22 +167,103 @@ Em settings ->  installed apps -> crie uma linha com o nome do seu app assim -> 
 
 <hr>
 
-agora na pasta do nosso projeto vamos definir o link que queremos definir para nossa funcionalidade (assim cada funcionalidade tem seu link proprio), para isso vamos criar um arquivo urls.py dentro da nossa pasta de funcionalidade, e na urls.py "que esta dentro do projeto" a gente aponta pra esse link (compplicado mas basicamente sera link apontando para outro link)
+### Criando links do projeto
+No projeto temos a pasta urls.py, ela quem comanda todos os links criados dentro do projeto (inclusive urls para as imagens e arquivos do projeto), e para cada funcionalidade podemos criar tbm um novo arquivo urls.py com os links desta funcionalidade mas para isso precisamos apontar dentro da urls.py do projeto para as outras urls (sim, urls apontanto para outras urls).
+<br>
+Vamos ver o que há na pasta urls.py do projeto:
 
-vamos la:
-dentro da ulrs.py do projeto, vamos adicionar a biblioteca include, essa biblioteca vai incluir as bibliotecas da nossa funcionalidade:
+	urlpatterns = [
+	    path('admin/', admin.site.urls),
+	]
+- Temos o caminho 'admin/' para a url de admin do nosso site.
 
-	from django.urls import include 
+Vamos criar a urls.py para nossafuncionalidade (musica), pra isso entre na pasta da sua funcionalidade e crie o arquivo urls.py, não faremos nada ainda, apenas vamos apontar o projeto para essa url, pra isso,dentro de urls.py do projeto importe:
 
-feito isso vamos adicionar:
+    from django.urls import include 
+Agora vamos apontar para a url da funcionalidade acrescentando a linha abaixo:
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('/', include('nomefuncionalidade.urls')) #leia obs
-]
+	urlpatterns = [
+	    path('admin/', admin.site.urls),
+	    path('/', include('nomefuncionalidade.urls')) #leia obs
+	]
+Pronto, agora esta feito o link do projeto para os links das suas funcionalidades, e la dentro vc poderá criar as urls das suas páginas. Vamos configurar agora os arquivos estáticos e mais a frente faremos nossa primeira página funcional.
+
+<hr>
+
+# Configurando arquivos estáticos e de media
+Antes de criar nossa primeira página em si, vamos configurar os arquivos estáticos e de media, os arquivos estaticos são aqueles quenão mudam no nosso site, são fixos, como as imagens de fundo por exemplo, ja arquivos de media são arquivos dinâmicos, que podem mudar constantemente em nosso site como por exemplo a foto de um perfil de um usuário.
+
+Vamos configurar tudo no arquivo settings.py:
+
+### Crie a url para seus arquivos:
+
+    STATIC_URL = 'static/'
+
+### Especifique o local da sua pasta de arquivos staticos:
+
+	STATICFILES_DIRS = [
+	    BASE_DIR / 'static'
+	]
+
+Obs: Onde BASE_DIR é o local do seu projeto (ou seja a pasta de suas imagens vai está na mesma pasta do seu projeto), então crie na raiz do seu projeto essa pasta chamada 'static' (pode ser qualquer nome mas por default chamamos de static), sua pasta deve aparecer como na imagem abaixo:
+
+![Captura de tela 2022-11-18 085643](https://user-images.githubusercontent.com/115194365/202700119-f2fd46d3-43d2-4694-b974-94081d569431.png)
 
 
-#obs no link sem nada "/" direcione para a nomefuncionalidade.urls isso que esta acontecendo nesta linha
+
+
+
+
+
+
+
+
+
+
+
+
+como dito anteriormente, a pasta static é onde ficam os arquivos css,
+arquivos javascript e as imagens, entao crie dentro dessa pasta static, outras pastas chamadas css, js e image (não é obrigatorio mas por organização)
+
+
+agora dentro da pasta do seu projeto, em urls.py adicione a linha
+
+	urlpatterns+=static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
+
+e importe la dentro:
+	from django.conf import settings
+	from django.conf.urls.static import static
+
+isso vai garantir o roteamento para suas pastas statics
+
+
+
+
+
+
+AGORA VAMOS CONFIGURAR OS ARQUIVOS MEDIA (SAO ARQUIVOS NAO ESTATICOS, QUE OS USUARIOS PODEM MANDAR PARA O SITE COMO FOTO DE PERFIL POR EXEMPLO)
+
+Pra isso adicione em urls.py do seu projeto a linha:
+
+	urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+Agora vamos definir em settings essas variaveis de media ne?
+
+	MEDIA_URL = 'media/'
+	MEDIA_ROOT = BASE_DIR / 'media'
+
+pronto, agora se vc subir uma imagem no banco de dados, vai salvar o caminho
+na pasta media ou na pasta static
+
+
+
+
+
+
+
+
+
+
 
 
 
