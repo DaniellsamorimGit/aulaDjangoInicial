@@ -234,7 +234,7 @@ Vamos definir em settings essas variaveis:
 	MEDIA_URL = 'media/'
 	MEDIA_ROOT = BASE_DIR / 'media'
 	
-Agora em urls.py do seu projeto a linha:
+Agora em urls.py do seu projeto adicione a linha:
 
 	urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
