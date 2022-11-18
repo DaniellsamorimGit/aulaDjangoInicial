@@ -11,7 +11,9 @@ Material didático com as configurações iniciais para criação de sites com D
 * [Configurando MySQL](#configurando-mysql)
 * [Criando o super user](#criando-o-super-user)
 * [Configurações básicas finais](#configurações-básicas-finais)
-* [Configurando arquivos estáticos e de media](#configurando-arquivos-estáticos-e-de-media)
+* [Configurando arquivos estáticos](#configurando-arquivos-estáticos)
+* [Configurando arquivos de media](#configurando-arquivos-de-media)
+
 
 <hr>
 
@@ -190,8 +192,8 @@ Pronto, agora esta feito o link do projeto para os links das suas funcionalidade
 
 <hr>
 
-# Configurando arquivos estáticos e de media
-Antes de criar nossa primeira página em si, vamos configurar os arquivos estáticos e de media, os arquivos estaticos são aqueles quenão mudam no nosso site, são fixos, como as imagens de fundo por exemplo, ja arquivos de media são arquivos dinâmicos, que podem mudar constantemente em nosso site como por exemplo a foto de um perfil de um usuário.
+# Configurando arquivos estáticos 
+Antes de criar nossa primeira página em si, vamos configurar os arquivos estáticos e de media, os arquivos estaticos são aqueles que não mudam no nosso site, são fixos, como as imagens de fundo por exemplo, já arquivos de media são arquivos dinâmicos, que podem mudar constantemente em nosso site como por exemplo a foto de um perfil de um usuário.
 
 Vamos configurar tudo no arquivo settings.py:
 
@@ -209,56 +211,57 @@ Obs: Onde BASE_DIR é o local do seu projeto (ou seja a pasta de suas imagens va
 
 ![Captura de tela 2022-11-18 085643](https://user-images.githubusercontent.com/115194365/202700119-f2fd46d3-43d2-4694-b974-94081d569431.png)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-como dito anteriormente, a pasta static é onde ficam os arquivos css,
+Como dito anteriormente, a pasta static é onde ficam os arquivos css,
 arquivos javascript e as imagens, entao crie dentro dessa pasta static, outras pastas chamadas css, js e image (não é obrigatorio mas por organização)
 
 
-agora dentro da pasta do seu projeto, em urls.py adicione a linha
+Agora dentro da pasta do seu projeto, em urls.py (aquele que comanda todas as urls do site lembram?) adicione a linha
 
 	urlpatterns+=static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
 
 e importe la dentro:
+
 	from django.conf import settings
 	from django.conf.urls.static import static
 
-isso vai garantir o roteamento para suas pastas statics
+<hr>
 
-
-
-
-
-
-AGORA VAMOS CONFIGURAR OS ARQUIVOS MEDIA (SAO ARQUIVOS NAO ESTATICOS, QUE OS USUARIOS PODEM MANDAR PARA O SITE COMO FOTO DE PERFIL POR EXEMPLO)
-
-Pra isso adicione em urls.py do seu projeto a linha:
-
-	urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
-
-Agora vamos definir em settings essas variaveis de media ne?
+# Configurandos arquivos de media
+Agora vamos configurar os arquivos de media, como ja explicado anteriomente:
+<br>
+Vamos definir em settings essas variaveis:
 
 	MEDIA_URL = 'media/'
 	MEDIA_ROOT = BASE_DIR / 'media'
+	
+Agora em urls.py do seu projeto a linha:
 
-pronto, agora se vc subir uma imagem no banco de dados, vai salvar o caminho
-na pasta media ou na pasta static
+	urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+Pronto, agora vc pode entrar no seu admin e baixar os arquivos de media para seu projeto.
+
+<hr>
+
+### Vamos ver como ficou nosso arquivo URLS.PY
+Lembra dele? o  arquivo que comanda todas as urls do nosso projeto? ele deve estar assim:
 
 
+	from django.contrib import admin
+	from django.urls import path, include
+	from django.conf import settings
+	from django.conf.urls.static import static
 
+	urlpatterns = [
+	    path('admin/', admin.site.urls),
+	    #path('/', include('musicas.urls')) #inclui a funcionalidade musicas com url vazia
+	]
 
+	urlpatterns+=static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
+	urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
+Agora nos temos os links para as urls das funcionalidadees, para o admin, e para as pastas estaticas e de media! 
+
+<hr>
 
 
 
