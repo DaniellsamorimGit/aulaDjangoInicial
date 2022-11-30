@@ -45,26 +45,26 @@ Amante de tecnologias e desenvolvimento Python.<br>
     pip install django
     
 ### Criando a pasta de projetos
+
     django-admin startproject (nomedoprojeto) . 
     
-- Em nomeprojeto de um nome ao seu projeto e coloque o "." no final para criar na raiz.
-- vai criar a pasta do seu projeto e o arquivo manage.py. O manage.py é quem gerencia a estrutura do projeto e dentro dele vai criar o arquivo wsgi.py é quem gerencia a parte de servidor, o urls gerencia os links do site, o settings.py quem diz onde vão ficar localizados as pastas, os arquivos e etc.
+- Em nomeprojeto de um nome ao seu projeto e coloque o "." no final para criar a pasta na raiz (fica mais organizado).
+- vai criar a pasta do seu projeto e o arquivo manage.py. O manage.py é quem gerencia a estrutura do projeto e dentro dele vai criar o arquivo wsgi.py é quem gerencia a parte de servidor, o urls gerencia os links do site, o settings.py onde configuramos os templates, o app e a pasta static.
+
+### Criando nosso APP 
+App é a funcionalidade do nosso site, onde ficarão nossas templates, as urls para as paginas, as views etc.
+
+    django-admin startapp (nomedoAPP)
+    
+- APP dentro de um projeto é o que queremos criar em termos de página HTTP e banco de dados para uma determinada funcionalidade.
+- Na criação do APP será criada o arquivo models.py onde iremos definir as tabelas do nosso banco de dados.
+
+<hr>
 
 ### Criando o server local
     python manage.py runserver
 - Vai criar o link, com congratulations. link criado no localhost com endereço (http://127.0.0.1:8000)
-- Pronto, a estrutura principal do DJANGO foicriada.
-
-<hr>
-
-
-# Criando nosso APP 
-App é a funcionalidade do nosso site, como por exemplo server de músicas, pode ter "cadastro de artistas", "cadastro de músicas" e etc...
-
-    django-admin startapp (nomedafuncinalidade)
-    
-- Funcionalidade dentro de um projeto é o que queremos criar em termos de página HTTP e no banco de dados.
-- Na criação da funcionalidade será criada o arquivo models.py onde iremos definir as tabelas do nosso banco de dados.
+- Pronto, a estrutura principal do DJANGO foi criada.
 
 <hr>
 
