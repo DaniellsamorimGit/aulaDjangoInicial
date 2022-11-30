@@ -61,9 +61,9 @@ App é a funcionalidade do nosso site, onde ficarão nossas templates, as urls p
 
 <hr>
 
-### Criando o server local
+### Abrindo o server local
     python manage.py runserver
-- Vai criar o link, com congratulations. link criado no localhost com endereço (http://127.0.0.1:8000)
+- Vai criar o link, com congratulations. Link criado no localhost com endereço (http://127.0.0.1:8000)
 - Pronto, a estrutura principal do DJANGO foi criada.
 
 <hr>
